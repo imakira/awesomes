@@ -9,7 +9,8 @@
                      (:h :spinneret)
                      (:t :trivia))
   (:export :*awesomes-status*
-           #:home-page))
+           #:home-page
+           #:fetch-status))
 (in-package :awesomes)
 
 (sp:toggle-pretty-print-hash-table t)
@@ -17,19 +18,6 @@
   (setf lp:*kernel* (lp:make-kernel 8)))
 
 (defvar *debugger-p* (symbol-value (uiop:find-symbol* '*global-debugger* (find-package :slynk) nil)))
-
-(defparameter *awesomes*
-  '(("Emacs"
-     "https://github.com/emacs-lsp/lsp-mode"
-     "https://github.com/emacs-evil/evil"
-     "https://github.com/minad/vertico"
-     "https://github.com/magit/magit"
-     "https://github.com/minad/org-modern")
-    ("NixOS"
-     "https://github.com/NixOS/nix"
-     "https://github.com/nix-community/home-manager")
-    ("Shell"
-     "https://github.com/ohmyzsh/ohmyzsh")))
 
 (defun fetch-github-status (repo author)
   (let* ((result (jzon:parse (http:get (sp:concat
@@ -88,7 +76,7 @@
             (sp:assort (sp:filter #'identity result) :key #'first))))
 
 
-(defvar *awesomes-status* (if *debugger-p* (fetch-status *awesomes*)))
+(defvar *awesomes-status* (if *debugger-p* (fetch-status config:*awesomes*)))
 
 (defmacro with-template-string (&body body)
   `(h:with-html-string
@@ -114,7 +102,7 @@
 
 (defmacro prologue ()
   `(h:with-html
-     (:div :attrs (list :class "bg-white mt-12 text-xl font-medium text-slate-700 p-4")
+     (:div :attrs (list :class "bg-white mt-8 sm:mt-12 text-xl font-medium text-slate-700 p-4")
            (:p "Hello! This is an awesome list made by me showing projects I'm interested in or using all the time."))))
 
 (defmacro epilogue (config)
@@ -134,7 +122,7 @@
 
 (defun home-page (status config)
   (with-template-string
-    (:div :attrs (list :class "w-full flex justify-center")
+    (:div :attrs (list :class "w-full flex justify-center px-4")
           (:div :attrs (list :class "w-[48rem]")
                 (prologue)
                 (loop :for (section-name items) :in status
@@ -155,11 +143,11 @@
                                                                          :url _)
                                                                  :description description
                                                                  :stars-count stars-count)
-                                           (:div :attrs (list :class "h-24 bg-white grid grid-rows-[1fr_1.1fr]")
+                                           (:div :attrs (list :class "h-28 sm:h-24 bg-white grid grid-rows-[1fr_1.3fr] sm:grid-rows-[1fr_1.1fr]")
                                                  (:div :attrs (list :class "flex bg-sky-700 items-stretch justify-between pl-4")
                                                        (:div :attrs (list :class "flex items-center ")
                                                              (:a :attrs (list :href url)
-                                                                 (:span :attrs (list :class "text-white text-xl font-medium")
+                                                                 (:span :attrs (list :class "text-white text-lg sm:text-xl font-medium leading-1")
                                                                         (:span :attrs (list :class "text-slate-200") owner-name)
                                                                         " "
                                                                         (:span :attrs (list :class "text-slate-400") "/")
@@ -173,10 +161,5 @@
                                                                  (:span :attrs (list :class "relative -top-[1px] text-slate-100 material-symbols-outlined")
                                                                         "star"))))
                                                  (:div :attrs (list :class "px-3.5 min-h-0 h-full overflow-hidden flex items-center")
-                                                       (:p :attrs (list :class "line-clamp-1 text-slate-800 font-medium") description)))))))))
+                                                       (:p :attrs (list :class "line-clamp-2 sm:line-clamp-1 text-slate-800 font-medium") description)))))))))
                 (epilogue config)))))
-
-;; (home-page *awesomes-status*)
-
-;; (fetch-status *awesomes*)
-
