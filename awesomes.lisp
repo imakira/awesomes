@@ -51,21 +51,22 @@
                               (cdr section)))
                     awesomes))
           (result (lp:pmapcar (lambda (link-tuple)
-                                (let ((section (first link-tuple))
-                                      (link (second link-tuple)))
-                                  (handler-bind
-                                      ((error (lambda (c)
-                                                (log:log-warn "fetch link " link " failed, error: " c)
-                                                (unless *debugger-p*
-                                                  (return-from fetch-status)))))
-                                    (list section
-                                          (progn
-                                            (if (github-link-p link)
-                                                (let ((tmp (parse-github-link link)))
-                                                  (fetch-github-status
-                                                   (sp:href tmp :repo)
-                                                   (sp:href tmp :name)))
-                                                (fetch-general-link-status (second link-tuple))))))))
+                                (block blk
+                                  (let ((section (first link-tuple))
+                                        (link (second link-tuple)))
+                                    (handler-bind
+                                        ((error (lambda (c)
+                                                  (log:log-warn "fetch link " link " failed, error: " c)
+                                                  (unless *debugger-p*
+                                                    (return-from blk)))))
+                                      (list section
+                                            (progn
+                                              (if (github-link-p link)
+                                                  (let ((tmp (parse-github-link link)))
+                                                    (fetch-github-status
+                                                     (sp:href tmp :repo)
+                                                     (sp:href tmp :name)))
+                                                  (fetch-general-link-status (second link-tuple)))))))))
                               :parts 8
                               normalized-links)))
     (mapcar (lambda (section)
