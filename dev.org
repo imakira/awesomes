@@ -57,6 +57,12 @@ and it will generate an executable ~./awesomes~, you can execute it to build the
 You can also direct execute the ~generate:generate~ function in Lisp REPL.
 
 
+* Deploy to github
+
+Push the projects to your github repository.
+
+In the settings of the repo, ~Pages~ -> ~Branch~, choose the suitable branch and directory to "docs" (This program will write outputs to "./docs" by default).
+
 * Misc Notes
 
 ** Build the project with nix
