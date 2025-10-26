@@ -1,8 +1,7 @@
+(require 'asdf)
 (asdf:defsystem "awesomes"
   :depends-on (#:alexandria
-               #:arrow-macros
                #:serapeum
-               #:defmain
                #:cl-ppcre
                #:hunchentoot
                #:spinneret
@@ -12,9 +11,13 @@
                #:log4cl
                #:trivia
                #:local-time)
-  :components ((:file "awesomes")
-               (:file "server" :depends-on ("awesomes"))
-               (:file "generate" :depends-on ("awesomes"))))
+  :components ((:file "config")
+               (:file "awesomes" :depends-on ("config"))
+               (:file "server" :depends-on ("awesomes" "config"))
+               (:file "generate" :depends-on ("awesomes" "config")))
+  :build-operation "program-op"
+  :build-pathname "awesomes"
+  :entry-point "generate:generate")
 
 
 

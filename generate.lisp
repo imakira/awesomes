@@ -7,7 +7,8 @@
                      (:lp :lparallel)
                      (:log :log4cl)
                      (:h :spinneret)
-                     (:t :trivia)))
+                     (:t :trivia))
+  (:export :generate))
 
 (in-package :generate)
 
@@ -28,6 +29,11 @@
                             (uiop:copy-file file dest-file))))))
 
 (defun generate ()
+
+  ;; FIXME move it to somewhere more sensisble
+  (unless lp:*kernel*
+    (setf lp:*kernel* (lp:make-kernel 8)))
+
   (t:match config:*config*
     ((t:hash-table-entries :output-dir output-dir
                            :cname cname)

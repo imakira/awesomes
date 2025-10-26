@@ -12,7 +12,7 @@
    :*config*
    :*awesomes*))
 
-(in-package config)
+(in-package :config)
 
 (defparameter *awesomes*
   '(("Emacs"

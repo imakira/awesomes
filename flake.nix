@@ -5,21 +5,46 @@
   outputs = { self, flake-utils, nixpkgs }:
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
-      in {
+      in rec {
         packages.default = pkgs.sbcl.buildASDFSystem rec {
           pname = "awesomes";
           version = "0.1";
           src = self;
           lispLibs = with pkgs.sbclPackages; [
             alexandria
-            arrow-macros
             serapeum
-            defmain
             cl-ppcre
+            hunchentoot
+            spinneret
+            dexador
+            com_dot_inuoe_dot_jzon
+            lparallel
+            log4cl
+            trivia
+            local-time
           ];
-          nativeLibs = [
-            pkgs.openssl
+          buildScript = pkgs.writeText "build-awesomes" ''
+            (require 'asdf)
+            (asdf:load-system "awesomes")
+            (sb-ext:save-lisp-and-die
+                        "awesomes"
+                        :executable t
+                        #+sb-core-compression :compression
+                        #+sb-core-compression t
+                        :toplevel #'generate:generate)
+          '';
+          nativeBuildInputs = [
+            pkgs.makeWrapper
           ];
+
+          installPhase =   ''
+            runHook preInstall
+            mkdir -p $out/bin
+            cp awesomes $out/bin
+            wrapProgram $out/bin/awesomes \
+                        --prefix LD_LIBRARY_PATH : $LD_LIBRARY_PATH
+            runHook postInstall
+          '';
         };
       }
     );

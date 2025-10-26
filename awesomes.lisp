@@ -14,8 +14,6 @@
 (in-package :awesomes)
 
 (sp:toggle-pretty-print-hash-table t)
-(unless lp:*kernel*
-  (setf lp:*kernel* (lp:make-kernel 8)))
 
 (defvar *debugger-p* (symbol-value (uiop:find-symbol* '*global-debugger* (find-package :slynk) nil)))
 
