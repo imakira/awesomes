@@ -41,7 +41,8 @@
      (let ((status (awesomes:fetch-status config:*awesomes*))
            (path (uiop:merge-pathnames* (uiop:ensure-directory-pathname output-dir))))
        (write-string-into-file (awesomes:home-page status config:*config*)
-                               (uiop:merge-pathnames* path "index.html"))
+                               (uiop:merge-pathnames* path "index.html")
+                               :if-exists :overwrite)
        (when cname (write-string-into-file cname (uiop:merge-pathnames* path "CNAME")))
        (copy-directory "./resources/src/" "./docs/")))))
 
