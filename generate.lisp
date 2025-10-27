@@ -43,7 +43,7 @@
              (path (uiop:merge-pathnames* (uiop:ensure-directory-pathname output-dir))))
          (write-string-into-file (awesomes:home-page status config:*config*)
                                  (uiop:merge-pathnames* path "index.html")
-                                 :if-exists :overwrite)
+                                 :if-exists :supersede)
          (when cname (write-string-into-file cname (uiop:merge-pathnames* path "CNAME")))
          (copy-directory "./resources/src/" "./docs/"))))))
 
