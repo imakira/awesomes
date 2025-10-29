@@ -6,7 +6,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in rec {
-        packages.default = pkgs.sbcl.buildASDFSystem rec {
+        packages.default = pkgs.sbcl.buildASDFSystem {
           pname = "awesomes";
           version = "0.1";
           src = self;
