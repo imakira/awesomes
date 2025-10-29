@@ -13,6 +13,7 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix run .#css
       - run: nix run .
       - name: Commit files
         run: |

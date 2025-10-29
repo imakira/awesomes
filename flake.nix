@@ -46,6 +46,9 @@
             runHook postInstall
           '';
         };
+        packages.css = pkgs.writeShellScriptBin "css.sh" ''
+        ${pkgs.tailwindcss_4}/bin/tailwindcss -i ./resources/src/style.css -o ./resources/src/output.css -m
+        '';
       }
     );
 }
