@@ -126,10 +126,10 @@
                 (prologue)
                 (loop :for (section-name items) :in status
                       :collect
-                      (:div :attrs (list :class "mt-12")
+                      (:div :attrs (list :class "mt-14")
                             (:div
-                             (:h2 :attrs (list :class "text-3xl border-l-2 border-sky-700 text-slate-700 mb-4 pl-2") section-name))
-                            (:div :attrs (list :class "flex flex-col gap-5")
+                             (:h2 :attrs (list :class "text-3xl border-l-2 border-sky-700 text-slate-700 mb-4 pl-2 mb-8") section-name))
+                            (:div :attrs (list :class "flex flex-col gap-8")
                                   (loop :for item :in items
                                         :collect
                                         (t:match item
