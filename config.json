@@ -1,7 +1,7 @@
 {
   "cname": null,
   "output_dir": "./docs/",
-  "prologue": "<p>Hello! This is an awesome list made by me showing projects I'm interested in or using all the time. </p>",
+  "prologue": "<p>Hello! This is an awesome list made by <a href=\"https://github.com/imakira\">me</a> showing projects I'm interested in or using all the time. </p>",
   "epilogue": "<p>This site is powered by <a href=\"https://en.wikipedia.org/wiki/Common_Lisp\">Common Lisp</a> and the <a href=\"https://github.com/imakira/awesomes\">source code</a> is released under <a href=\"https://unlicense.org/\">Public Domain.</a>",
   "awesomes": [
     {

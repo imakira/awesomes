@@ -99,31 +99,23 @@
         (t
          (format nil "~D" (round number)))))
 
-(defmacro prologue ()
+(defmacro prologue (config)
   `(h:with-html
-     (:div :attrs (list :class "bg-white mt-8 sm:mt-12 text-xl font-medium text-slate-700 p-4")
-           (:p "Hello! This is an awesome list made by me showing projects I'm interested in or using all the time."))))
+     (:div :attrs (list :class "prologue bg-white mt-8 sm:mt-12 text-xl font-medium text-slate-700 p-4")
+           (:raw (sp:href ,config :prologue)))))
 
 (defmacro epilogue (config)
   `(h:with-html
      (:div :attrs (list :class "epilogue bg-white mt-12 text-lg font-medium text-slate-700 p-4 mb-10")
-           (:p "This site is powered by "
-               (:a :attrs (list :href "https://en.wikipedia.org/wiki/Common_Lisp")
-                   "Common Lisp")
-               " and the "
-               (:a :attrs (list :href (sp:href ,config :project-url))
-                   "source code")
-               " is released under "
-               (:a :attrs (list :href "https://unlicense.org/")
-                   "Public Domain."))
-           (:p :attrs (list :class "mt-2") "Last updated time "
+           (:raw (sp:href ,config :epilogue))
+           (:p :attrs (list :class "mt-2") "Last update time: "
                (:span :attrs (list :class "border-dotted border-b-2 text-slate-600") (format nil "~a" (local-time:now)))))))
 
 (defun home-page (status config)
   (with-template-string
     (:div :attrs (list :class "w-full flex justify-center px-4")
           (:div :attrs (list :class "w-[48rem]")
-                (prologue)
+                (prologue config)
                 (loop :for (section-name items) :in status
                       :collect
                       (:div :attrs (list :class "mt-14")
