@@ -16,6 +16,8 @@
 (sp:toggle-pretty-print-hash-table t)
 
 (defvar *debugger-p* (symbol-value (uiop:find-symbol* '*global-debugger* (find-package :slynk) nil)))
+(when *debugger-p*
+  (setf lp:*kernel* (lp:make-kernel 8)))
 
 (defun fetch-github-status (repo author)
   (let* ((result (jzon:parse (http:get (sp:concat
