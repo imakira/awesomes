@@ -1,0 +1,16 @@
+* Introduction
+
+*Awesomes* is a simple program that generates github projects you are interested in into a static web page, you can check the [[https://coruscation.net/awesomes/][example site]] here.
+
+* Use It
+
++ Fork the project or use it as a template
++ Enable Github Actions for this project
++ In Settings -> Actions -> General -> Workflow permissions, select "Read and write permission".
++ In Settings -> Pages -> Build and Deployment -> Branch, select "master" and "/docs", it will then prompt the url you can access the generated page.
++ Final step, modify ~config.json~ in the root folder of this project to suit your need, and push it back to your repository.
+
+* Developing
+
+check [[https://github.com/imakira/awesomes/blob/master/dev.org][dev.org]].
+
