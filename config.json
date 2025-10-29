@@ -1,0 +1,65 @@
+{
+  "cname": null,
+  "output_dir": "./docs/",
+  "prologue": "<p>Hello! This is an awesome list made by me showing projects I'm interested in or using all the time. </p>",
+  "epilogue": "<p>This site is powered by <a href=\"https://en.wikipedia.org/wiki/Common_Lisp\">Common Lisp</a> and the <a href=\"https://github.com/imakira/awesomes\">source code</a> is released under <a href=\"https://unlicense.org/\">Public Domain.</a>",
+  "awesomes": [
+    {
+      "section": "Emacs",
+      "links": [
+        "https://github.com/emacs-evil/evil",
+        "https://github.com/minad/vertico",
+        "https://github.com/magit/magit",
+        "https://github.com/minad/org-modern",
+        "https://github.com/karthink/gptel",
+        "https://github.com/emacs-lsp/lsp-mode",
+        "https://github.com/mohkale/projection",
+        "https://github.com/minad/consult"
+      ]
+    },
+    {
+      "section": "Shell & Terminal",
+      "links": [
+        "https://github.com/ohmyzsh/ohmyzsh",
+        "https://github.com/tmux/tmux",
+        "https://github.com/tmux-plugins/tmux-resurrect",
+        "https://github.com/KDE/konsole"
+      ]
+    },
+    {
+      "section": "NixOS",
+      "links": [
+        "https://github.com/NixOS/nix",
+        "https://github.com/nix-community/home-manager",
+        "https://github.com/nix-community/nixos-generators"
+      ]
+    },
+    {
+      "section": "Clojure & ClojureScript",
+      "links": [
+        "https://github.com/clojure-emacs/cider",
+        "https://github.com/ring-clojure/ring",
+        "https://github.com/thheller/shadow-cljs",
+        "https://github.com/pitch-io/uix",
+        "https://github.com/weavejester/hiccup"
+      ]
+    },
+    {
+      "section": "Common Lisp",
+      "links": [
+        "https://github.com/ruricolist/serapeum",
+        "https://github.com/edicl/hunchentoot",
+        "https://github.com/ruricolist/spinneret",
+        "https://github.com/Zulu-Inuoe/jzon",
+        "https://github.com/guicho271828/trivia"
+      ]
+    },
+    {
+      "section": "JavaScript & TypeScript",
+      "links": [
+        "https://github.com/angular/angular",
+        "https://github.com/ReactiveX/rxjs"
+      ]
+    }
+  ]
+}

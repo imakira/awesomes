@@ -8,9 +8,9 @@
                      (:log :log4cl)
                      (:h :spinneret)
                      (:t :trivia))
-  (:export :*awesomes-status*
-           #:home-page
-           #:fetch-status))
+  (:export #:home-page
+           #:fetch-status
+           #:*debugger-p*))
 (in-package :awesomes)
 
 (sp:toggle-pretty-print-hash-table t)
@@ -76,8 +76,6 @@
                     (mapcar #'second section)))
             (sp:assort (sp:filter #'identity result) :key #'first))))
 
-
-(defvar *awesomes-status* (if *debugger-p* (fetch-status config:*awesomes*)))
 
 (defmacro with-template-string (&body body)
   `(h:with-html-string

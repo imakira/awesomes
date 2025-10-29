@@ -5,13 +5,17 @@
                      (:h :spinneret)))
 (in-package :server)
 
-(defparameter *inst* (make-instance 'hunchentoot:easy-acceptor
-                                    :port 8080))
+(defvar *inst* (make-instance 'hunchentoot:easy-acceptor
+                              :port 8080))
+
+(defvar *config* (config:load-config-from-json))
+
+(defvar *awesome-status* (when awesomes:*debugger-p* (awesomes:fetch-status (sp:href *config* :awesomes))))
 
 (hunchentoot:define-easy-handler (home :uri "/") ()
   (let ((*print-pretty* nil))
-    (funcall #'awesomes:home-page awesomes:*awesomes-status*
-             config:*config*)))
+    (funcall #'awesomes:home-page *awesome-status*
+             *config*)))
 
 (defun start-server ()
   (unless (hunchentoot:started-p *inst*)

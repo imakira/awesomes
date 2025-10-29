@@ -34,15 +34,16 @@
   (unless lp:*kernel*
     (setf lp:*kernel* (lp:make-kernel 8)))
 
-  (t:match config:*config*
-    ((t:hash-table-entries :output-dir output-dir
-                           :cname cname)
-     (ensure-directories-exist output-dir)
-     (let ((status (awesomes:fetch-status config:*awesomes*))
-           (path (uiop:merge-pathnames* (uiop:ensure-directory-pathname output-dir))))
-       (write-string-into-file (awesomes:home-page status config:*config*)
-                               (uiop:merge-pathnames* path "index.html")
-                               :if-exists :supersede)
-       (when cname (write-string-into-file cname (uiop:merge-pathnames* path "CNAME")))
-       (copy-directory "./resources/src/" "./docs/")))))
+  (let ((config (config:load-config-from-json)))
+    (t:match config
+      ((t:hash-table-entries :output-dir output-dir
+                             :cname cname)
+       (ensure-directories-exist output-dir)
+       (let ((status (awesomes:fetch-status (sp:href config :awesomes)))
+             (path (uiop:merge-pathnames* (uiop:ensure-directory-pathname output-dir))))
+         (write-string-into-file (awesomes:home-page status config)
+                                 (uiop:merge-pathnames* path "index.html")
+                                 :if-exists :supersede)
+         (when cname (write-string-into-file cname (uiop:merge-pathnames* path "CNAME")))
+         (copy-directory "./resources/src/" "./docs/"))))))
 

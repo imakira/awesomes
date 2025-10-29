@@ -9,48 +9,33 @@
                      (:h :spinneret)
                      (:t :trivia))
   (:export
-   :*config*
-   :*awesomes*))
+   :load-config-from-json))
 
 (in-package :config)
 
-(defparameter *awesomes*
-  '(("Emacs"
-     "https://github.com/emacs-evil/evil"
-     "https://github.com/minad/vertico"
-     "https://github.com/magit/magit"
-     "https://github.com/minad/org-modern"
-     "https://github.com/karthink/gptel"
-     "https://github.com/emacs-lsp/lsp-mode"
-     "https://github.com/mohkale/projection"
-     "https://github.com/minad/consult")
-    ("Shell & Terminal"
-     "https://github.com/ohmyzsh/ohmyzsh"
-     "https://github.com/tmux/tmux"
-     "https://github.com/tmux-plugins/tmux-resurrect"
-     "https://github.com/KDE/konsole")
-    ("NixOS"
-     "https://github.com/NixOS/nix"
-     "https://github.com/nix-community/home-manager"
-     "https://github.com/nix-community/nixos-generators")
-    ("Clojure & ClojureScript"
-     "https://github.com/clojure-emacs/cider"
-     "https://github.com/ring-clojure/ring"
-     "https://github.com/thheller/shadow-cljs"
-     "https://github.com/pitch-io/uix"
-     "https://github.com/weavejester/hiccup")
-    ("Common Lisp"
-     "https://github.com/ruricolist/serapeum"
-     "https://github.com/edicl/hunchentoot"
-     "https://github.com/ruricolist/spinneret"
-     "https://github.com/Zulu-Inuoe/jzon"
-     "https://github.com/guicho271828/trivia")
-    ("JavaScript & TypeScript"
-     "https://github.com/angular/angular"
-     "https://github.com/ReactiveX/rxjs")))
+(defun string-not-empty (str)
+  (if (or (not str)
+          (equal str 'null)
+          (and (stringp str) (emptyp str)))
+      nil
+      str))
 
-(defparameter *config*
-  (sp:dict
-   :output-dir "./docs/"
-   :cname nil
-   :project-url "random"))
+(defun load-config-from-json (&optional location)
+  (when (uiop:file-exists-p (or location "config.json"))
+    (t:match (jzon:parse (read-file-into-string "config.json"))
+      ((t:hash-table-entries!
+        "prologue" prologue
+        "epilogue" epilogue
+        "awesomes" awesomes
+        "cname" cname
+        "output_dir" output-dir)
+       (let ((awesomes
+               (map 'list (lambda (section)
+                            (cons (sp:href section "section")
+                                  (map 'list #'identity (sp:href section "links"))))
+                    awesomes)))
+         (sp:dict :prologue prologue
+                  :epilogue epilogue
+                  :awesomes awesomes
+                  :cname (string-not-empty cname)
+                  :output-dir (string-not-empty output-dir)))))))
