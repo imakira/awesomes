@@ -1,4 +1,4 @@
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fimakira%2Fawesomes.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fimakira%2Fawesomes?ref=badge_shield)
+[[https://app.fossa.com/projects/git%2Bgithub.com%2Fimakira%2Fawesomes?ref=badge_shield][https://app.fossa.com/api/projects/git%2Bgithub.com%2Fimakira%2Fawesomes.svg?type=shield]]
 
 * Introduction
 
@@ -15,8 +15,3 @@
 * Developing
 
 check [[https://github.com/imakira/awesomes/blob/master/dev.org][dev.org]].
-
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fimakira%2Fawesomes.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fimakira%2Fawesomes?ref=badge_large)
